@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+
+{% block body %}
+{% if mode == 'create' %}
+  <form method="post" action="{% url 'create' %}">
+{% endif %}
+{% if mode == 'update' %}
+  <form method="post" action="{% url 'update' hotel_id %}">
+{% endif %}
+{% if mode == 'delete' %}
+  <form method="post" action="{% url 'delete' hotel_id %}">
+{% endif %}
+    {% csrf_token %}
+    <div class="container mt-4">
+      <div class="row">
+        <div class="col-12 my-2">
+          <label>{{ form.name.label }}</label> {{ form.name }}
+        </div>
+        <div class="col-12 my-2">
+          <label>{{ form.address.label }}</label> {{ form.address }}
+        </div>
+        <div class="col-3 my-2">
+          <label>{{ form.stars.label }}</label> {{ form.stars }}
+        </div>
+        <div class="col-12 my-1 mt-2 d-flex flex-row">
+          <label class="mr-4">{{ form.meal.label }}</label>
+          {% for s in form.meal %}
+            <div class="custom-control custom-radio">
+              {{ s.tag }}
+              <label class="custom-control-label mr-4" for="{{ s.id_for_label }}">{{ s.choice_label }}</label>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="col-12 my-1 d-flex flex-row">
+          <h6 class="mr-4">{{ form.service.label }}</h6>
+          {% for s in form.service %}
+            <div class="custom-control custom-checkbox">
+              {{ s.tag }} 
+              <label class="custom-control-label mr-4" for="{{ s.id_for_label }}">{{ s.choice_label }}</label>
+            </div>
+          {% endfor %}
+        </div>
+        <div class="col-6 ">
+          <label>{{ form.openDate.label }}</label> {{ form.openDate }}
+        </div>
+        <div class="col-12 d-flex flex-row">
+          <a href="{% url 'list' %}" class="btn btn-primary mr-2" role="button">戻る</a>
+          {% if mode == 'create' %}
+            <input class="btn btn-primary" type="submit" value="登録">
+          {% endif %}
+          {% if mode == 'update' %}
+            <input class="btn btn-primary" type="submit" value="更新">
+          {% endif %}
+          {% if mode == 'delete' %}
+            <input class="btn btn-primary" type="submit" value="削除">
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </form>
+{% endblock %}
