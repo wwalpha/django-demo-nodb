@@ -49,7 +49,7 @@ Find the plugins and install
 5. F5(2回)で起動後、http://localhost:8000/は確認できる
 
 ## Project Settings
-### Inital
+### Initial
 ```
 django-admin startproject Django
 cd Django
